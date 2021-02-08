@@ -10,9 +10,9 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-           BrandTest();
+           //BrandTest();
            //ColorTest();
-           // CarTest();
+            CarTest();
         }
 
         private static void CarTest()
@@ -21,9 +21,9 @@ namespace ConsoleUI
             Car car1 = new Car { BrandId = 3, ColorId = 1, ModelYear = 2015, DailyPrice = 150, Description = "Otomatik" };
             carManager.Add(car1);
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.CarName + " / " + car.BrandName + " / "  + car.ColorName + " / " + car.DailyPrice);
             }
 
             car1.Description = "Manuel";
@@ -31,16 +31,16 @@ namespace ConsoleUI
 
             Console.WriteLine("----Güncellendikten sonra------ ");
 
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.CarName + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
             }
 
             Console.WriteLine(" ----- Car1 silindikten sonra----- ");
             carManager.Delete(car1);
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetCarDetails())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine(car.CarName + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
             }
 
             Console.WriteLine("2. Arabanın model yili: " + carManager.GetById(2).ModelYear);
