@@ -13,7 +13,7 @@ namespace ConsoleUI
             //BrandTest();
             //ColorTest();
             //CarTest();
-            RentalTest();
+           // RentalTest();
             //Customer customer = new Customer { CustomerId = 5, CustomerName = "Sevgi", UserId = 10 };
             //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
             //customerManager.Add(customer);

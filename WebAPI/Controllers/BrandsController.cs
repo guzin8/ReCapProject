@@ -1,11 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using Business.Abstract;
+//using Entities.Concrete;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using DataAccess.Concrete.EntityFramework;
+
 using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -13,6 +25,25 @@ namespace WebAPI.Controllers
     [ApiController]
     public class BrandsController : ControllerBase
     {
+        //IBrandService _brandService;
+
+        //public BrandsController(IBrandService brandService)
+        //{
+        //    _brandService = brandService;
+        //}
+
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+
+        //    var result = _brandService.GetAll();
+        //    if (result.Success)
+        //    {
+        //        return Ok(result);
+        //    }
+        //    return BadRequest(result.Message);
+
+        //}
         IBrandService _brandService;
 
         public BrandsController(IBrandService brandService)
@@ -26,9 +57,11 @@ namespace WebAPI.Controllers
         {
             var result = _brandService.GetAll();
             if (result.Success)
-                return Ok(result);
+            {
+                return Ok(result.Data);
+            }
 
-            return BadRequest(result);          
+            return BadRequest(result.Message);
         }
 
         [HttpGet("getbyid")]
@@ -37,9 +70,9 @@ namespace WebAPI.Controllers
         {
             var result = _brandService.GetById(id);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
 
         [HttpPost("add")]
@@ -48,9 +81,9 @@ namespace WebAPI.Controllers
         {
             var result = _brandService.Add(brand);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Message);
 
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
 
         [HttpPost("delete")]
@@ -59,9 +92,9 @@ namespace WebAPI.Controllers
         {
             var result = _brandService.Delete(brand);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Message);
 
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
 
         [HttpPost("update")]
@@ -70,9 +103,9 @@ namespace WebAPI.Controllers
         {
             var result = _brandService.Update(brand);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Message);
 
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
     }
 }

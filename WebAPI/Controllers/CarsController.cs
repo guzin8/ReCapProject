@@ -1,11 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Threading.Tasks;
+//using Business.Abstract;
+//using Entities.Concrete;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+
 using Business.Abstract;
+using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
@@ -25,7 +36,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetAll();
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
             return BadRequest(result);
         }
@@ -35,7 +46,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetById(id);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
             return BadRequest(result);
         }
@@ -77,7 +88,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetCarsByColorId(id);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
             return BadRequest(result);
         }
@@ -87,7 +98,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetCarsByBrandId(id);
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
             return BadRequest(result);
         }
@@ -97,7 +108,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetCarDetails();
             if (result.Success)
-                return Ok(result);
+                return Ok(result.Data);
 
             return BadRequest(result);
         }
