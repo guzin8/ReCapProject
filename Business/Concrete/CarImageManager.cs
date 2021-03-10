@@ -24,7 +24,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;     
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
+       [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfImageLimitExceded(carImage.CarId));
@@ -74,16 +74,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.SuccessMessage);
         }
 
-        public IDataResult<List<CarImage>> GetImagesByCarId(CarImage carImage)
+        public IDataResult<List<CarImage>> GetImagesByCarId(int id)
         {
-            if (_carImageDal.GetAll(p => p.CarId == carImage.CarId) != null)
-            {
-                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
-            }
 
-            carImage.ImagePath = @"\Images\sirketLogo.png";
-
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+            return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id));
         }
 
         private IResult CheckIfImageLimitExceded(int carid)
@@ -96,7 +90,18 @@ namespace Business.Concrete
             }
             return new SuccessResult();
         }
-        
-       
+
+        private List<CarImage> CheckIfCarImageNull(int id)
+        {
+            string path = @"\Images\logo.jpg";
+            var result = _carImageDal.GetAll(c => c.CarId == id).Any();
+            if (!result)
+            {
+                return new List<CarImage> { new CarImage { CarId = id, ImagePath = path, Date = DateTime.Now } };
+            }
+            return _carImageDal.GetAll(p => p.CarId == id);
+        }
+
+
     }
 }

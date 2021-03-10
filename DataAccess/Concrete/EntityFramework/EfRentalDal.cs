@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Core.Entities.Concrete;
 
 namespace DataAccess.Concrete.EntityFramework
 {
@@ -21,7 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                              join cu in context.Customers
                              on re.CustomerId equals cu.CustomerId
                              join us in context.Users
-                             on cu.UserId equals us.UserId
+                             on cu.UserId equals us.Id
                              select new RentalDetailsDto
                              {
                                  RentalId = re.Id,

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace WebAPI.Controllers
 {
@@ -44,9 +45,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("getimagesbycarid")]
-        public IActionResult GetImagesByCarId(CarImage carImage)
+        public IActionResult GetImagesByCarId(int id )
         {
-            var result = _carImageService.GetImagesByCarId(carImage);
+            var result = _carImageService.GetImagesByCarId(id);
 
             if (result.Success)
                 return Ok(result.Data);
@@ -60,9 +61,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Add(file, carImage);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Message);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
 
         [HttpPut("update")]
@@ -71,9 +72,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Update(file, carImage);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Message);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
 
         [HttpPost("delete")]
@@ -83,9 +84,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Delete(image);
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(result.Message);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
     }
 }
