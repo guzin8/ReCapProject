@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -34,9 +35,10 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
+            Thread.Sleep(5000);
             var result = _carService.GetAll();
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
@@ -46,7 +48,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetById(id);
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
@@ -88,7 +90,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetCarsByColorId(id);
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
@@ -98,7 +100,7 @@ namespace WebAPI.Controllers
         {
             var result = _carService.GetCarsByBrandId(id);
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
@@ -106,11 +108,24 @@ namespace WebAPI.Controllers
         [HttpGet("getcardetails")]
         public IActionResult GetCarDetails()
         {
+            Thread.Sleep(5000);
             var result = _carService.GetCarDetails();
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
+
+        [HttpGet("getcardetailsbycarid")]
+        public IActionResult GetCarDetailsByCarId(int carId)
+        {
+            Thread.Sleep(5000);
+            var result = _carService.GetCarDetailsByCarId(carId);
+            if (result.Success)
+                return Ok(result);
+
+            return BadRequest(result);
+        }
+
     }
 }

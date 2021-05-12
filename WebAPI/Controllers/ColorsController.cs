@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
@@ -24,9 +25,10 @@ namespace WebAPI.Controllers
 
         public IActionResult GetAll()
         {
+            Thread.Sleep(5000);
             var result = _colorService.GetAll();
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }
@@ -37,7 +39,7 @@ namespace WebAPI.Controllers
         {
             var result = _colorService.GetById(id);
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result);
         }

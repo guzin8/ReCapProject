@@ -18,7 +18,5 @@ namespace Core.Utilities.Results
         public SuccessDataResult() : base(default, true)
         {
         }
-
-        public T Data { get; }
     }
 }

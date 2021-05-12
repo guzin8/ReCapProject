@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
+using System.Threading;
 
 namespace WebAPI.Controllers
 {
@@ -14,7 +15,7 @@ namespace WebAPI.Controllers
         [ApiController]
 
         public class CarImagesController:ControllerBase
-    {
+    { 
         ICarImageService _carImageService;
 
         public CarImagesController(ICarImageService carImageService)
@@ -26,11 +27,12 @@ namespace WebAPI.Controllers
 
         public IActionResult GetAll()
         {
+            Thread.Sleep(5000);
             var result = _carImageService.GetAll();
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getbyid")]
@@ -39,9 +41,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.GetById(id);
 
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet("getimagesbycarid")]
@@ -50,9 +52,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.GetImagesByCarId(id);
 
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("add")]
@@ -61,9 +63,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Add(file, carImage);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPut("update")]
@@ -72,9 +74,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Update(file, carImage);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpPost("delete")]
@@ -84,9 +86,9 @@ namespace WebAPI.Controllers
             var result = _carImageService.Delete(image);
             if (result.Success)
             {
-                return Ok(result.Message);
+                return Ok(result);
             }
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
     }
 }
